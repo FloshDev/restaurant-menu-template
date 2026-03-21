@@ -428,6 +428,7 @@ function renderActiveSectionPanel(options = {}) {
   const localQuery = appState.localQueries[section.id] || "";
   const activeGroupId = getActiveGroupId(section);
   const activeGroup = groups.find((group) => group.id === activeGroupId) || groups[0];
+  const headNote = section.note || "";
 
   let headTitle = section.title;
   let headSubtitle = "";
@@ -474,6 +475,7 @@ function renderActiveSectionPanel(options = {}) {
       <div class="category-panel-head">
         <h2>${escapeHtml(headTitle)}</h2>
         ${headSubtitle ? `<p>${escapeHtml(headSubtitle)}</p>` : ""}
+        ${headNote ? `<p>${escapeHtml(headNote)}</p>` : ""}
       </div>
       <div class="section-content">
         ${body}

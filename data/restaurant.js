@@ -9,7 +9,7 @@ window.RESTAURANT_DATA = {
   menuNote:
     "Prezzi, disponibilità e proposte stagionali possono variare in base al servizio.",
   footerNote:
-    "Per allergeni, disponibilità giornaliere e variazioni stagionali fai riferimento al personale di sala.",
+    "Per allergeni, disponibilità giornaliere, variazioni stagionali e prodotti surgelati fai riferimento al personale di sala.",
   logo: "./Logo.svg?v=4",
   favicon: "./Logo.svg?v=4",
   appleTouchIcon: "./Logo.svg?v=4",

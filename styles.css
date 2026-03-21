@@ -68,6 +68,19 @@ code {
   pointer-events: none;
 }
 
+.page-background::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(24vh, 220px);
+  background: linear-gradient(
+    180deg,
+    rgba(244, 235, 221, 0.18) 0%,
+    rgba(244, 235, 221, 0.08) 38%,
+    rgba(244, 235, 221, 0) 100%
+  );
+}
+
 .page-glow {
   position: absolute;
   border-radius: 50%;

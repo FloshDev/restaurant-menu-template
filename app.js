@@ -452,7 +452,7 @@ function renderActiveSectionPanel(options = {}) {
       )
     );
 
-    headSubtitle = groups.length > 1 ? activeGroup.title : "";
+    headSubtitle = "";
     body = records.length
       ? `<div class="items-grid">${renderMenuCards(records)}</div>`
       : renderEmptyState(

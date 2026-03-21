@@ -240,6 +240,7 @@ code {
 .subgroup-nav-shell {
   position: relative;
   overflow: hidden;
+  border-radius: var(--radius-sm);
 }
 
 .category-nav-shell::before,
@@ -277,6 +278,27 @@ code {
   scroll-padding-inline: 18px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+}
+
+.subgroup-nav-shell {
+  justify-self: start;
+  width: fit-content;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.subgroup-nav-shell::before,
+.subgroup-nav-shell::after {
+  display: none;
+}
+
+.subgroup-nav {
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%;
+  overflow: visible;
+  padding: 0;
+  scroll-padding-inline: 0;
 }
 
 .category-nav::-webkit-scrollbar,

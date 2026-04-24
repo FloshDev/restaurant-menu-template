@@ -1,333 +1,175 @@
-# Template Statico Menu Ristorante
+# Restaurant Digital Menu Template
 
-Questo progetto trasforma un menu statico in un template riusabile per ristoranti diversi. I contenuti stanno nei file `data/`, la presentazione in `styles.css`, la logica minima in `app.js`.
+A clean, mobile-first static template for restaurant digital menus. No framework, no build step — edit two JSON files, push, done.
 
-## Struttura
+**[Live Demo →](https://floshdev.github.io/restaurant-menu-template/)**
 
-- `index.html`: shell della pagina, metadati base e collegamento ai file.
-- `styles.css`: layout, responsive, componenti e tema visivo.
-- `app.js`: legge i dati, genera la pagina e gestisce ricerca e navigazione.
-- `data/restaurant.js`: branding del ristorante, logo, icone browser, palette, testi.
-- `data/menu.js`: categorie, piatti, prezzi, descrizioni e sottogruppi opzionali.
-- `Logo.svg`: logo attuale usato dal dataset iniziale di Queen.
-- `.github/workflows/deploy-pages.yml`: deploy automatico su GitHub Pages.
-- `.nojekyll`: evita interferenze di Jekyll sul sito statico.
+---
 
-## Come funziona
+## Features
 
-Il sito non usa framework, backend o build tool.
+- **Zero dependencies** — plain HTML, CSS, vanilla JS
+- **PWA-ready** — installable on mobile via Web App Manifest
+- **JSON-driven** — all content in two files, no code edits needed
+- **Fully themeable** — complete color palette from a single config key
+- **Global + local search** — across all dishes or within the active category
+- **Category subgroups** — for long sections like pizzas
+- **Open Graph / SEO** — title, description, og:image from data
+- **Auto-deploy** — GitHub Actions workflow included
 
-Aprendo `index.html`, il browser carica:
+## Stack
 
-- i dati del ristorante da `data/restaurant.js`;
-- i dati del menu da `data/menu.js`;
-- il rendering e le interazioni da `app.js`;
-- gli stili da `styles.css`.
+HTML · CSS · Vanilla JS · GitHub Pages
 
-`app.js` costruisce automaticamente:
+---
 
-- hero con logo e descrizione;
-- favicon e icone browser dai dati branding;
-- ricerca globale;
-- ricerca nella categoria attiva;
-- categorie orizzontali;
-- eventuali sottogruppi interni;
-- lista piatti della sezione attiva.
+## Quick Start
 
-## File Da Modificare Di Solito
+1. Fork this repo
+2. Edit `data/restaurant.json` — name, logo, colors, SEO
+3. Edit `data/menu.json` — categories, dishes, prices
+4. Push → GitHub Pages deploys automatically
 
-Tocca normalmente:
+---
 
-- `data/restaurant.js` per logo, favicon, testi e colori;
-- `data/menu.js` per categorie, ordine, piatti e prezzi.
+## Structure
 
-Di solito non serve toccare:
+```
+├── index.html          # Page shell and meta tags
+├── app.js              # Rendering, search, navigation
+├── styles.css          # Layout, responsive, theming
+├── manifest.json       # PWA configuration
+└── data/
+    ├── restaurant.json # Branding, theme, SEO, highlights
+    └── menu.json       # Categories, dishes, prices
+```
 
-- `app.js`, a meno che tu non voglia cambiare il comportamento del template;
-- `styles.css`, a meno che tu non voglia rifare il design;
-- `index.html`, a meno che tu non debba aggiungere metadati globali non previsti.
+---
 
-## Modificare Il Ristorante
+## Data Format
 
-Apri `data/restaurant.js`.
+### `data/restaurant.json`
 
-Campi principali:
-
-- `name`: nome del ristorante.
-- `subtitle`: sottotitolo.
-- `heroLabel`: etichetta piccola sopra il brand.
-- `description`: testo introduttivo.
-- `logo`: logo grande mostrato nella pagina.
-- `favicon`: icona della tab del browser.
-- `appleTouchIcon`: icona per home screen iPhone.
-- `maskIcon`: icona per Safari pinned tab.
-- `logoAlt`: testo alternativo del logo.
-- `theme`: palette completa del template.
-- `seo.title`: titolo pagina/browser.
-- `seo.description`: descrizione meta.
-- `footerNote`: nota finale.
-
-Esempio minimo:
-
-```js
-window.RESTAURANT_DATA = {
-  name: "Nuovo Ristorante",
-  subtitle: "Ristorante & Pizzeria",
-  heroLabel: "Menù alla carta",
-  description: "Breve presentazione del locale.",
-  logo: "./assets/logo.svg",
-  favicon: "./assets/favicon.svg",
-  appleTouchIcon: "./assets/apple-touch-icon.png",
-  maskIcon: "./assets/mask-icon.svg",
-  logoAlt: "Logo Nuovo Ristorante",
-  footerNote: "Per allergeni e disponibilità chiedi al personale.",
-  theme: {
-    page: "#151312",
-    pageAlt: "#1d1917",
-    surface: "rgba(24, 20, 19, 0.92)",
-    surfaceSoft: "rgba(34, 28, 26, 0.94)",
-    surfaceStrong: "#0e0c0b",
-    accent: "#d1a15d",
-    accentStrong: "#f0c786",
-    accentMuted: "rgba(209, 161, 93, 0.16)",
-    text: "#f6efe7",
-    muted: "#bcae9f",
-    border: "rgba(240, 199, 134, 0.2)",
-    shadow: "0 32px 80px rgba(0, 0, 0, 0.4)",
-    glow: "rgba(209, 161, 93, 0.28)"
+```json
+{
+  "name": "Il Ristorante",
+  "subtitle": "Ristorante & Pizzeria",
+  "heroLabel": "Menù alla carta",
+  "description": "A short introduction to the venue.",
+  "logo": "./assets/logo.svg",
+  "favicon": "./assets/favicon.svg",
+  "appleTouchIcon": "./assets/apple-touch-icon.png",
+  "maskIcon": "./assets/mask-icon.svg",
+  "logoAlt": "Logo Il Ristorante",
+  "footerNote": "Ask staff for allergen information.",
+  "highlights": ["Fresh ingredients", "Local cuisine"],
+  "theme": {
+    "page": "#151312",
+    "pageAlt": "#1d1917",
+    "surface": "rgba(24, 20, 19, 0.92)",
+    "surfaceSoft": "rgba(34, 28, 26, 0.94)",
+    "surfaceStrong": "#0e0c0b",
+    "accent": "#d1a15d",
+    "accentStrong": "#f0c786",
+    "accentMuted": "rgba(209, 161, 93, 0.16)",
+    "text": "#f6efe7",
+    "muted": "#bcae9f",
+    "border": "rgba(240, 199, 134, 0.2)",
+    "shadow": "0 32px 80px rgba(0, 0, 0, 0.4)",
+    "glow": "rgba(209, 161, 93, 0.28)"
   },
-  seo: {
-    title: "Nuovo Ristorante | Menù",
-    description: "Menù digitale del ristorante."
+  "seo": {
+    "title": "Il Ristorante | Menù",
+    "description": "Digital menu.",
+    "ogImage": "./assets/og.jpg"
   }
-};
-```
-
-## Logo, Favicon E Icone
-
-Il branding visivo e il branding browser sono separati ma gestiti nello stesso file.
-
-- `logo` controlla il logo visibile nell'hero.
-- `favicon` controlla l'icona visibile nella tab del browser.
-- `appleTouchIcon` controlla l'icona se salvi il sito nella home di iPhone.
-- `maskIcon` controlla l'icona pinned di Safari.
-
-Consigli pratici:
-
-- usa `SVG` quando possibile per `logo` e `favicon`;
-- per il favicon conviene un file semplice e leggibile anche in piccolo;
-- se sostituisci un asset e il browser continua a mostrarti quello vecchio, aggiungi o incrementa un query string, per esempio `./logo.svg?v=2`.
-
-## Colori E Tema
-
-Tutta la palette è in `theme` dentro `data/restaurant.js`.
-
-Chiavi usate dal template:
-
-- `page`: sfondo principale.
-- `pageAlt`: seconda tonalità dello sfondo.
-- `surface`: pannelli principali.
-- `surfaceSoft`: card e superfici secondarie.
-- `surfaceStrong`: base più scura.
-- `accent`: colore brand principale.
-- `accentStrong`: versione più luminosa.
-- `accentMuted`: versione tenue del colore brand.
-- `text`: testo principale.
-- `muted`: testo secondario.
-- `border`: bordi.
-- `shadow`: ombre.
-- `glow`: bagliore decorativo di sfondo.
-
-Se vuoi cambiare velocemente il look, modifica prima:
-
-- `accent`
-- `surface`
-- `text`
-- `muted`
-
-## Modificare Le Categorie
-
-Le categorie stanno in `data/menu.js` dentro `window.MENU_DATA`.
-
-Ogni categoria ha questa forma:
-
-```js
-{
-  id: "dolci",
-  title: "Dolci",
-  items: [
-    { name: "Tiramisù", price: "€ 7,00" },
-    { name: "Cheesecake", price: "€ 7,50", description: "frutti rossi" }
-  ]
 }
 ```
 
-Campi:
+**Quick theme swap:** change `accent`, `surface`, `text`, `muted` first — those drive most of the visual identity.
 
-- `id`: identificatore tecnico univoco.
-- `title`: titolo mostrato in pagina.
-- `items`: elenco piatti.
+### `data/menu.json`
 
-Per riordinare il menu, sposta gli oggetti dentro `window.MENU_DATA`.
-
-Per aggiungere una categoria, aggiungi un nuovo oggetto.
-
-Per rimuovere una categoria, elimina l'oggetto corrispondente.
-
-L'ordine nell'array è l'ordine che vedi nel sito.
-
-## Modificare I Piatti
-
-Ogni piatto è un oggetto semplice:
-
-```js
-{ name: "Tartare di tonno", price: "€ 18,00", description: "lime, olio evo, capperi" }
+```json
+[
+  {
+    "id": "antipasti",
+    "title": "Antipasti",
+    "items": [
+      { "name": "Bruschetta", "price": "€ 6,00", "description": "tomato, basil" },
+      { "name": "Prosciutto crudo", "price": "€ 9,00" }
+    ]
+  }
+]
 ```
 
-Campi:
+Each dish: `name` (required), `price` (required), `description` (optional).
 
-- `name`: nome del piatto.
-- `price`: prezzo visualizzato.
-- `description`: descrizione facoltativa.
+---
 
-Se non serve la descrizione:
+## Category Subgroups
 
-```js
-{ name: "Patate al forno", price: "€ 6,00" }
-```
+For long sections (e.g. pizzas), split items into labeled subgroups:
 
-## Sottogruppi Opzionali
-
-`app.js` supporta sottogruppi dentro una categoria. Questo è utile soprattutto per sezioni molto lunghe come `Pizze`.
-
-Puoi usare:
-
-- `groups`: sottogruppi espliciti;
-- `restGroup`: sottogruppo finale automatico per tutto ciò che non è stato assegnato.
-
-Esempio:
-
-```js
+```json
 {
-  id: "pizze",
-  title: "Pizze",
-  groups: [
-    {
-      id: "classiche",
-      title: "Classiche",
-      itemNames: ["Marinara", "Margherita", "Napoletana"]
-    },
-    {
-      id: "speciali",
-      title: "Speciali",
-      itemNames: ["Boscaiola", "Quattro formaggi"]
-    }
+  "id": "pizze",
+  "title": "Pizze",
+  "groups": [
+    { "id": "classiche", "title": "Classic", "itemNames": ["Margherita", "Marinara"] },
+    { "id": "speciali",  "title": "Special",  "itemNames": ["Boscaiola"] }
   ],
-  restGroup: {
-    id: "altre-pizze",
-    title: "Altre pizze"
-  },
-  items: [
-    { name: "Marinara", price: "€ 5,00" },
-    { name: "Margherita", price: "€ 7,00" },
-    { name: "Napoletana", price: "€ 8,00" },
-    { name: "Boscaiola", price: "€ 8,00" },
-    { name: "Quattro formaggi", price: "€ 9,00" }
+  "restGroup": { "id": "altre", "title": "Other pizzas" },
+  "items": [
+    { "name": "Margherita", "price": "€ 7,00" },
+    { "name": "Marinara",   "price": "€ 5,00" },
+    { "name": "Boscaiola",  "price": "€ 8,00" }
   ]
 }
 ```
 
-Regole pratiche:
+`itemNames` must match `name` values exactly. `restGroup` auto-collects anything not assigned to a group.
 
-- `itemNames` deve usare i nomi esatti dei piatti presenti in `items`;
-- ogni piatto deve comparire una sola volta;
-- `restGroup` raccoglie automaticamente i piatti non già assegnati;
-- se non definisci `groups`, la categoria resta semplice e senza sottosezioni.
+---
 
-## Ricerca
-
-Il template ha due ricerche:
-
-- ricerca globale su tutto il menu;
-- ricerca locale dentro la categoria attiva.
-
-La ricerca è già pronta e non richiede configurazione extra. Cerca su:
-
-- nome del piatto;
-- descrizione;
-- nome categoria;
-- nome del sottogruppo, se presente.
-
-## Avvio Locale
-
-Puoi aprire `index.html` direttamente nel browser, ma è meglio usare un server statico leggero.
-
-Esempio:
+## Local Dev
 
 ```bash
 python3 -m http.server 8000
+# open http://localhost:8000
 ```
 
-Poi apri:
+> Opening `index.html` directly won't work — the app fetches JSON via `fetch()`, which requires a server.
 
-```text
-http://localhost:8000
-```
+### Testing on iPhone
 
-## Test Su iPhone
-
-`localhost` su iPhone non va bene, perché punta al telefono stesso.
-
-Procedura:
-
-1. Avvia il server locale sul Mac.
-2. Trova l'IP del Mac.
-3. Apri da iPhone l'URL con quell'IP, sulla stessa rete Wi-Fi.
-
-Per trovare l'IP del Mac:
+Start the local server, find your Mac's IP, then open `http://<mac-ip>:8000` on the same Wi-Fi network.
 
 ```bash
 ipconfig getifaddr en0
 ```
 
-Se la rete attiva non è `en0`, prova `en1`.
+---
 
-## Pubblicazione Su GitHub Pages
+## Deploying to GitHub Pages
 
-Il repository è già predisposto per GitHub Pages tramite workflow GitHub Actions:
+The repo includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml`.
 
-- `.github/workflows/deploy-pages.yml`
+1. Push to `main`
+2. Go to **Settings → Pages** in your fork
+3. Set source to **GitHub Actions**
+4. The site deploys automatically on every push
 
-Questo significa che, dopo il push su `main`, GitHub può pubblicare il sito automaticamente.
+---
 
-Procedura pratica:
+## Assets & Caching
 
-1. Pusha su GitHub anche i file appena aggiunti o modificati.
-2. Apri il repository su GitHub.
-3. Vai in `Settings > Pages`.
-4. Se GitHub ti chiede il metodo di deploy, seleziona `GitHub Actions`.
-5. Controlla la tab `Actions` del repository e aspetta che il workflow `Deploy To GitHub Pages` completi.
-6. Una volta completato, il sito sarà disponibile pubblicamente.
+- Prefer SVG for logo and favicon.
+- If the browser caches an old asset, bust it with a query string: `./logo.svg?v=2`.
+- All asset paths must stay relative to the project root.
 
-Per questo repository, l'URL atteso è:
+---
 
-```text
-https://floshdev.github.io/restaurant-menu-template/
-```
+## License
 
-## Aggiornare Il Sito Pubblicato
-
-Dopo la prima configurazione di GitHub Pages, gli aggiornamenti diventano semplici:
-
-1. modifichi i file del progetto;
-2. fai commit e push su `main`;
-3. GitHub Actions ridistribuisce automaticamente il sito.
-
-Non devi fare build, export o compilazioni.
-
-## Cose Da Tenere A Mente
-
-- Tutti i path degli asset devono restare relativi al progetto.
-- L'ordine delle categorie dipende solo dall'ordine di `window.MENU_DATA`.
-- Il template è pensato per essere modificato a mano.
-- Se cambi spesso logo o favicon e non vedi subito l'aggiornamento, forza la cache con `?v=`.
+MIT

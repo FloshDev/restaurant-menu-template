@@ -1,0 +1,18 @@
+{
+  "name": "Queen Ristorante & Pizzeria",
+  "short_name": "Queen",
+  "description": "Menù digitale di Queen Ristorante & Pizzeria con antipasti, primi, secondi, contorni e pizze.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#151312",
+  "theme_color": "#d1a15d",
+  "icons": [
+    {
+      "src": "./Logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,1 +1,16 @@
+# macOS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Session / local context
+PROJECT_CONTEXT.md
+DEV_NOTES.md

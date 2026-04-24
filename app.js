@@ -37,11 +37,13 @@ function applyTheme(theme = {}) {
 function updateMetadata(restaurant) {
   const title = restaurant?.seo?.title || `${restaurant.name} | Menù`;
   const description = restaurant?.seo?.description || restaurant.description || "";
+  const ogImage = restaurant?.seo?.ogImage || restaurant?.logo || "";
 
   document.title = title;
   setMetaContent('meta[name="description"]', description);
   setMetaContent('meta[property="og:title"]', title);
   setMetaContent('meta[property="og:description"]', description);
+  setMetaContent('meta[property="og:image"]', ogImage);
   setMetaContent('meta[name="theme-color"]', restaurant?.theme?.page || "#151312");
 }
 
@@ -236,6 +238,16 @@ function buildContextLabel(record) {
   }
 
   return record.sectionTitle;
+}
+
+function renderHeroHighlights(restaurant) {
+  const list = restaurant?.highlights;
+  if (!Array.isArray(list) || !list.length) return "";
+  return `
+    <ul class="hero-highlights" role="list">
+      ${list.map((h) => `<li class="hero-highlight-chip">${escapeHtml(h)}</li>`).join("")}
+    </ul>
+  `;
 }
 
 function renderHeroBrandmark(restaurant) {
@@ -507,6 +519,7 @@ function renderAppShell() {
         </div>
         <div class="hero-copy">
           <p class="hero-description">${escapeHtml(restaurantData.description || "")}</p>
+          ${renderHeroHighlights(restaurantData)}
         </div>
       </header>
 
@@ -782,22 +795,64 @@ function bindInteractions() {
   rootElement.addEventListener("keydown", handleRootKeydown);
 }
 
-function initApp() {
+async function loadData() {
+  const [restaurantRes, menuRes] = await Promise.all([
+    fetch("./data/restaurant.json"),
+    fetch("./data/menu.json")
+  ]);
+
+  if (!restaurantRes.ok || !menuRes.ok) {
+    throw new Error("fetch fallita");
+  }
+
+  return {
+    restaurant: await restaurantRes.json(),
+    menu: await menuRes.json()
+  };
+}
+
+function showFallback(title, body) {
+  if (!rootElement) return;
+  rootElement.innerHTML = `
+    <div class="fallback-shell">
+      <h1>${escapeHtml(title)}</h1>
+      <p>${body}</p>
+    </div>
+  `;
+}
+
+async function initApp() {
   rootElement = document.getElementById("app");
-  restaurantData = window.RESTAURANT_DATA;
-  menuData = Array.isArray(window.MENU_DATA) ? window.MENU_DATA : [];
 
   if (!rootElement) {
     return;
   }
 
+  if (window.location.protocol === "file:") {
+    showFallback(
+      "Apri con un server locale",
+      "Il menù non può essere caricato aprendo il file direttamente. Avvia un server locale (es. <code>npx serve .</code>) e riapri la pagina."
+    );
+    return;
+  }
+
+  try {
+    const { restaurant, menu } = await loadData();
+    restaurantData = restaurant;
+    menuData = Array.isArray(menu) ? menu : [];
+  } catch {
+    showFallback(
+      "Errore nel caricamento",
+      "Controlla i file <code>data/restaurant.json</code> e <code>data/menu.json</code>."
+    );
+    return;
+  }
+
   if (!restaurantData || !menuData.length) {
-    rootElement.innerHTML = `
-      <div class="fallback-shell">
-        <h1>Dati mancanti</h1>
-        <p>Controlla i file <code>data/restaurant.js</code> e <code>data/menu.js</code>.</p>
-      </div>
-    `;
+    showFallback(
+      "Dati mancanti",
+      "Controlla i file <code>data/restaurant.json</code> e <code>data/menu.json</code>."
+    );
     return;
   }
 
